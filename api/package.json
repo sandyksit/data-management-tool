@@ -1,0 +1,29 @@
+{
+  "name": "data_management_tool",
+  "version": "1.0.0",
+  "description": "file generation",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Sandeep Srivastava",
+  "license": "ISC",
+  "devDependencies": {
+    "eslint": "^7.19.0",
+    "eslint-config-prettier": "^7.2.0",
+    "lint-staged": "10.5.4",
+    "nodemon": "^2.0.22",
+    "prettier": "2.2.1"
+  },
+  "dependencies": {
+    "body-parser": "^1.20.2",
+    "csv-parse": "^5.3.10",
+    "csv-parser": "^3.0.0",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "faker": "^5.5.3",
+    "moment": "^2.29.4"
+  }
+}
