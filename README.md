@@ -2,7 +2,7 @@
 ## Before start the application
   Please check below software
    ### NodeJs version > 16
-   ### Mongo services on for running mongo service
+   ### Mongo service should be running
    ### Install mongoDBCompass for checking database and collections
   
   ## app (UI)
