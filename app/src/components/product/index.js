@@ -8,14 +8,16 @@ import {
   generateProducts,
   filteredProducts,
 } from "services/product";
-import CustomAlert from "components/common/alert";
 import CustomChart from "components/common/custom-chart";
+import { useDispatch } from "react-redux";
+import { actions } from "redux/reducers/alert";
 
 const StyledCol = styled(Col)`
   padding: 20px;
 `;
 
 const Product = () => {
+  const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
   const [isGenerator, setIsGenerator] = useState(false);
   const [isCleaning, setIsCleaning] = useState(false);
@@ -28,18 +30,6 @@ const Product = () => {
       pageSize: 10,
     },
   });
-  const [alerts, seAlerts] = useState({
-    message: "",
-    level: "",
-    isOpen: false,
-  });
-
-  const onClear = () => {
-    seAlerts({
-      message: "",
-      isOpen: false,
-    });
-  };
 
   const getAllProducts = async () => {
     setLoading(true);
@@ -49,11 +39,7 @@ const Product = () => {
     });
     if (response?.error) {
       setLoading(false);
-      seAlerts({
-        message: response?.error?.message,
-        level: "error",
-        isOpen: true,
-      });
+      dispatch(actions.set({message:response?.error?.message}))
     } else {
       setLoading(false);
       setData(response?.data);
@@ -112,18 +98,10 @@ const Product = () => {
     const response = await generateProducts();
     if (response?.error) {
       setIsGenerator(false);
-      seAlerts({
-        message: response?.error?.message,
-        level: "error",
-        isOpen: true,
-      });
+      dispatch(actions.set({message:response?.error?.message}))
     } else {
       setIsGenerator(false);
-      seAlerts({
-        message: response?.message,
-        isOpen: true,
-        level: "success",
-      });
+      dispatch(actions.set({level: 'success', message:response?.message}))
     }
   };
   const handleFiltered = async () => {
@@ -131,19 +109,11 @@ const Product = () => {
     const response = await filteredProducts();
     if (response?.error) {
       setIsCleaning(false);
-      seAlerts({
-        message: response?.error?.message,
-        level: "error",
-        isOpen: true,
-      });
+      dispatch(actions.set({message:response?.error?.message}))
     } else {
       setIsDuplicateORGenerateDone(true);
       setIsCleaning(false);
-      seAlerts({
-        message: response?.message,
-        level: "success",
-        isOpen: true,
-      });
+      dispatch(actions.set({level: 'success', message:response?.message}))
     }
   };
 
@@ -181,7 +151,6 @@ const Product = () => {
           </Row>
         </div>
       </Layout>
-      <CustomAlert onClear={onClear} {...alerts} />
     </>
   );
 };

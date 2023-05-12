@@ -2,14 +2,24 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
 import App from "components/layout/app";
+import { Provider as StoreProvider } from "react-redux";
 import { BrowserRouter as Router } from "react-router-dom";
+import createStore from "redux/createStore";
 import reportWebVitals from "./reportWebVitals";
+import CustomAlert from "components/common/alert";
+import AuthProvider from "providers/AuthProvider";
+const store = createStore();
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <Router>
-      <App />
-    </Router>
+    <StoreProvider store={store}>
+    <CustomAlert/>
+    <AuthProvider>
+      <Router>
+        <App />
+      </Router>
+      </AuthProvider>
+    </StoreProvider>
   </React.StrictMode>
 );
 

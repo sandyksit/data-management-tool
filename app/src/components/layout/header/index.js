@@ -1,6 +1,7 @@
 import React from "react";
-import { Layout, Row, Col } from "antd";
+import { Layout, Row, Col, Button } from "antd";
 import styled from "styled-components";
+import { useAuth } from "providers/AuthProvider";
 const StyledLayoutHeader = styled(Layout.Header)`
   background-color: var(--blackPearl);
   position: 'sticky',
@@ -16,16 +17,31 @@ const StyledRowHeader = styled(Row)`
   flex-wrap: nowrap;
 `;
 
+const StyledButton= styled(Button)`
+  border: 0;
+  background-color: rgb(16, 26, 39);
+  color: var(--white);
+`;
+
 const StyledColLeft = styled(Col)`
   text-align: left;
 `;
+const StyledColRight = styled(Col)`
+  text-align: right;
+`;
 
-function HeaderContent() {
+function HeaderContent(props) {
+  const { userFullName, signOut } = useAuth();
   return (
     <>
       <StyledLayoutHeader role="header">
         <StyledRowHeader>
-          <StyledColLeft span={12}>Products</StyledColLeft>
+          <StyledColLeft span={12}>Product</StyledColLeft>
+          <StyledColRight span={12}>{userFullName}
+          <StyledButton itemProp="secondary" onClick={signOut}>
+              Sign out
+            </StyledButton>
+          </StyledColRight>
         </StyledRowHeader>
       </StyledLayoutHeader>
     </>
