@@ -73,6 +73,7 @@ const AuthProvider = (props) => {
     const accessToken = params.token;
     localStorage.setItem("Authorization", accessToken);
     setIsAuthenticated(true);
+    getProfile()
   };
 
   const onLoginClick = (params) => {

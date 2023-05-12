@@ -13,11 +13,11 @@ module.exports = ({ bcrypt, jwt, util, validators, appConfig, User, errorCodes }
       return res.status(400).json(return_response);
     }
 
-    const user = await User.findOne({ email: req.body.email });
+    const user = await User.findOne({ email: req.body.email.toLowerCase() });
     if (user) {
       const match = await bcrypt.compare(req.body.password, user.password);
       if(!match) {
-        return_response.error = String(error);
+        return_response.error = errorCodes[11113];
         return res.status(400).json(return_response);
       }
       delete user._doc.password;

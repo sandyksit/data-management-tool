@@ -11,12 +11,16 @@ module.exports = ({ extend, bcrypt, util, validators, User, errorCodes }) => {
       return_response.error = result.message;
       return res.status(400).json(return_response);
     }
-    let user = await User.findOne({ email: req.body.email });
+    let user = await User.findOne({ email: req.body.email.toLowerCase() });
     if (user) {
       return_response.error = errorCodes[11111];
       return res.status(400).json(return_response);
     }
-    const opt = extend({}, req.body);
+    const body = {
+      ...req.body,
+      email: req.body.email.toLowerCase()
+    }
+    const opt = extend({}, body);
     const salt = await bcrypt.genSaltSync(10);
     opt.password = await bcrypt.hashSync(opt.password, salt);
     try {
