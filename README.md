@@ -16,3 +16,7 @@
     npm run dev
     api application is running on localhost:5000
     
+  ## performance
+    Window machine taking 35 sec (ssd drive with 8gb ram)
+    Mac M1 chip machin taking under 10 sec
+    
